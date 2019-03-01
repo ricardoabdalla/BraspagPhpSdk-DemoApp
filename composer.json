@@ -1,0 +1,19 @@
+{
+    "name": "braspag/php-sdk-example",
+    "description": "Exemplo de utilização do SDK oficial da Braspag",
+    "license" : "MIT",
+    "authors": [
+        {
+            "name": "Ricardo Abdalla",
+            "email": "rabdalla@braspag.com.br"
+        },
+        {
+            "name": "Maurici Ferreira Junior",
+            "email": "mjunior@braspag.com.br"
+        }
+    ],
+
+    "require": {
+        "braspag/braspag-php-sdk": "^0.2.0"
+    }
+}
