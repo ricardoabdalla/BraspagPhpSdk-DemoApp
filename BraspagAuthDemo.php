@@ -8,6 +8,9 @@ use BraspagSdk\Common\Environment;
 use BraspagSdk\Common\OAuthGrantType;
 use BraspagSdk\Contracts\BraspagAuth\AccessTokenRequest;
 
+echo "BRASPAGAUTH\n";
+echo "=====================================\n";
+
 $options = new ClientOptions();
 $options->Environment = Environment::SANDBOX;
 
@@ -21,4 +24,6 @@ $request->Scope = "VelocityApp";
 
 $response = $client->createAccessToken($request);
 
-var_dump($response);
+echo "Token: " . $response->Token . "\n";
+echo "Http Status: " . $response->HttpStatus . "\n";
+echo "Expira em: " . $response->ExpiresIn . "\n";
