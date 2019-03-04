@@ -58,7 +58,7 @@ class PagadorDemo
         echo "\n";
     }
 
-    public function createCreditCardSale(PagadorClient $client)
+    private function createCreditCardSale(PagadorClient $client)
     {
         $request = new SaleRequest();
 
@@ -101,7 +101,7 @@ class PagadorDemo
         return $client->createSale($request);
     }
 
-    public function capture($paymentId, PagadorClient $client)
+    private function capture($paymentId, PagadorClient $client)
     {
         $request = new CaptureRequest();
         $request->Amount = 100000;
@@ -110,7 +110,7 @@ class PagadorDemo
         return $client->capture($request);
     }
 
-    public function void($paymentId, PagadorClient $client)
+    private function void($paymentId, PagadorClient $client)
     {
         $request = new VoidRequest();
         $request->Amount = 100000;
@@ -119,7 +119,7 @@ class PagadorDemo
         return $client->void($request);
     }
 
-    public function get($paymentId, PagadorClient $client)
+    private function get($paymentId, PagadorClient $client)
     {
         return $client->get($paymentId);
     }
