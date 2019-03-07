@@ -1,5 +1,7 @@
 <?php
 
+require ("vendor/autoload.php");
+
 use BraspagSdk\BraspagAuth\BraspagAuthClient;
 use BraspagSdk\Common\ClientOptions;
 use BraspagSdk\Common\Environment;
@@ -15,10 +17,7 @@ use BraspagSdk\Contracts\Velocity\TransactionData;
 use BraspagSdk\Velocity\VelocityClient;
 use BraspagSdk\Velocity\VelocityClientOptions;
 
-require ("vendor/autoload.php");
-
-
-
+//Exemplo de teste para analisar venda com velocity
 class VelocityDemo
 {
     public function run()
