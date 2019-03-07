@@ -3,6 +3,8 @@
 require ("vendor/autoload.php");
 
 use BraspagSdk\Common\Environment;
+use BraspagSdk\Pagador\PagadorClient;
+use BraspagSdk\Pagador\PagadorClientOptions;
 use BraspagSdk\Contracts\Pagador\CaptureRequest;
 use BraspagSdk\Contracts\Pagador\CreditCardData;
 use BraspagSdk\Contracts\Pagador\CustomerData;
@@ -10,10 +12,10 @@ use BraspagSdk\Contracts\Pagador\MerchantCredentials;
 use BraspagSdk\Contracts\Pagador\PaymentDataRequest;
 use BraspagSdk\Contracts\Pagador\SaleRequest;
 use BraspagSdk\Contracts\Pagador\VoidRequest;
-use BraspagSdk\Pagador\PagadorClient;
-use BraspagSdk\Pagador\PagadorClientOptions;
 
-class PagadorDemo
+
+//Exemplo de teste para gerar venda com cartão de crédito
+class PagadorCreditCardDemo
 {
     public function run()
     {
@@ -78,18 +80,6 @@ class PagadorDemo
         $request->Payment->Amount = 1000;
         $request->Payment->Installments = 1;
         $request->Payment->SoftDescriptor = "Braspag SDK";
-        $request->Payment->Capture = false;
-        $request->Payment->Authenticate = false;
-        $request->Payment->Recurrent = false;
-        $request->Payment->Credentials = null;
-        $request->Payment->Assignor = null;
-        $request->Payment->DebitCard = null;
-        $request->Payment->FraudAnalysis = null;
-        $request->Payment->ExternalAuthentication = null;
-        $request->Payment->Wallet = null;
-        $request->Payment->RecurrentPayment = null;
-        $request->Payment->ExternalAuthentication = null;
-        $request->Payment->ReturnUrl = null;
 
         $request->Payment->CreditCard = new CreditCardData();
         $request->Payment->CreditCard->CardNumber = "4485623136297301";
@@ -125,5 +115,5 @@ class PagadorDemo
     }
 }
 
-$demo = new PagadorDemo();
+$demo = new PagadorCreditCardDemo();
 $demo->run();
