@@ -14,12 +14,12 @@ use BraspagSdk\Contracts\Pagador\SaleRequest;
 use BraspagSdk\Contracts\Pagador\VoidRequest;
 
 
-//Exemplo de teste para gerar venda com cartão de crédito
+// Exemplo de teste para gerar venda com cartão de crédito
 class PagadorCreditCardDemo
 {
     public function run()
     {
-        echo "PAGADOR\n";
+        echo "PAGADOR CRÉDITO\n";
         echo "=====================================\n";
 
         /* Criação do Cliente Pagador */
