@@ -1,6 +1,6 @@
 <?php
 
-require ("vendor/autoload.php");
+require ("../vendor/autoload.php");
 
 use BraspagSdk\Common\Environment;
 use BraspagSdk\Contracts\Pagador\CustomerData;
@@ -12,38 +12,39 @@ use BraspagSdk\Contracts\Pagador\VoidRequest;
 use BraspagSdk\Pagador\PagadorClient;
 use BraspagSdk\Pagador\PagadorClientOptions;
 
-// Exemplo de teste para gerar venda com cartão de débito
+/* Exemplo de código para geração de vendas com cartão de débito no gateway Pagador */
+/* Para maiores informações, consulte a documentação do produto em https://braspag.github.io/manual/braspag-pagador */
 class PagadorDebitCardDemo
 {
     public function run()
     {
-        echo "PAGADOR DÉBITO\n";
-        echo "=====================================\n";
+        echo nl2br("PAGADOR DÉBITO\n");
+        echo nl2br("=====================================\n");
 
         /* Criação do Cliente Pagador */
         $credentials = new MerchantCredentials("33B6AC07-C48D-4F13-A5B9-D3516A378A0C", "d6Rb3OParKvLfzNrURzwcT0f1lzNazS1o19yP6Y8");
-        $options = new PagadorClientOptions($credentials, Environment::SANDBOX);
+        $options = new PagadorClientOptions($credentials, Environment::SANDBOX); // Para produção, utilize Environment::PRODUCTION
         $pagadorClient = new PagadorClient($options);
 
         /* Efetivação da transação */
         $sale = $this->createDebitCardSale($pagadorClient);
 
-        echo "Transaction authorized\n";
-        echo "Order ID: " . $sale->MerchantOrderId . "\n";
-        echo "Payment ID: " . $sale->Payment->PaymentId . "\n";
-        echo "Payment Status: " . $sale->Payment->Status . "\n";
-        echo "URL de autenticação:" . $sale->Payment->AuthenticationUrl . "\n";
-        echo "\n";
+        echo nl2br("Transaction authorized\n");
+        echo nl2br("Order ID: " . $sale->MerchantOrderId . "\n");
+        echo nl2br("Payment ID: " . $sale->Payment->PaymentId . "\n");
+        echo nl2br("Payment Status: " . $sale->Payment->Status . "\n");
+        echo nl2br("URL de autenticação:" . $sale->Payment->AuthenticationUrl . "\n");
+        echo nl2br("\n");
 
         /* Recuperação da Transação */
         $saleRemote = $this->get($sale->Payment->PaymentId, $pagadorClient);
 
-        echo "Transaction obtained from server\n";
-        echo "Order ID: " . $saleRemote->MerchantOrderId . "\n";
-        echo "Payment ID: " . $saleRemote->Payment->PaymentId . "\n";
-        echo "Payment Status: " . $saleRemote->Payment->Status . "\n";
-        echo "URL de autenticação:" . $sale->Payment->AuthenticationUrl . "\n";
-        echo "\n";
+        echo nl2br("Transaction obtained from server\n");
+        echo nl2br("Order ID: " . $saleRemote->MerchantOrderId . "\n");
+        echo nl2br("Payment ID: " . $saleRemote->Payment->PaymentId . "\n");
+        echo nl2br("Payment Status: " . $saleRemote->Payment->Status . "\n");
+        echo nl2br("URL de autenticação:" . $sale->Payment->AuthenticationUrl . "\n");
+        echo nl2br("\n");
     }
 
     private function createDebitCardSale(PagadorClient $client)
@@ -77,15 +78,6 @@ class PagadorDebitCardDemo
         $request->Payment->DebitCard->Brand = "Visa";
 
         return $client->createSale($request);
-    }
-
-    private function void($paymentId, PagadorClient $client)
-    {
-        $request = new VoidRequest();
-        $request->Amount = 100000;
-        $request->PaymentId = $paymentId;
-
-        return $client->void($request);
     }
 
     private function get($paymentId, PagadorClient $client)

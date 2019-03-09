@@ -1,6 +1,6 @@
 <?php
 
-require ("vendor/autoload.php");
+require ("../vendor/autoload.php");
 
 use BraspagSdk\Common\Environment;
 use BraspagSdk\Pagador\PagadorClient;
@@ -13,57 +13,56 @@ use BraspagSdk\Contracts\Pagador\PaymentDataRequest;
 use BraspagSdk\Contracts\Pagador\SaleRequest;
 use BraspagSdk\Contracts\Pagador\VoidRequest;
 
-
-// Exemplo de teste para gerar venda com cartão de crédito
+/* Exemplo de código para geração de vendas com cartão de crédito no gateway Pagador */
+/* Para maiores informações, consulte a documentação do produto em https://braspag.github.io/manual/braspag-pagador */
 class PagadorCreditCardDemo
 {
     public function run()
     {
-        echo "PAGADOR CRÉDITO\n";
-        echo "=====================================\n";
+        echo nl2br("PAGADOR CRÉDITO\n");
+        echo nl2br("=====================================\n");
 
         /* Criação do Cliente Pagador */
         $credentials = new MerchantCredentials("33B6AC07-C48D-4F13-A5B9-D3516A378A0C", "d6Rb3OParKvLfzNrURzwcT0f1lzNazS1o19yP6Y8");
-        $options = new PagadorClientOptions($credentials, Environment::SANDBOX);
+        $options = new PagadorClientOptions($credentials, Environment::SANDBOX); // Para produção, utilize Environment::PRODUCTION
         $pagadorClient = new PagadorClient($options);
 
         /* Autorização */
         $sale = $this->createCreditCardSale($pagadorClient);
 
-        echo "Transaction authorized\n";
-        echo "Order ID: " . $sale->MerchantOrderId . "\n";
-        echo "Payment ID: " . $sale->Payment->PaymentId . "\n";
-        echo "Payment Status: " . $sale->Payment->Status . "\n";
-        echo "\n";
+        echo nl2br("Transaction authorized\n");
+        echo nl2br("Order ID: " . $sale->MerchantOrderId . "\n");
+        echo nl2br("Payment ID: " . $sale->Payment->PaymentId . "\n");
+        echo nl2br("Payment Status: " . $sale->Payment->Status . "\n");
+        echo nl2br("\n");
 
         /* Captura */
         $saleCapture = $this->capture($sale->Payment->PaymentId, $pagadorClient);
 
-        echo "Transaction captured\n";
-        echo "Payment Status: " . $saleCapture->Status . "\n";
-        echo "\n";
+        echo nl2br("Transaction captured\n");
+        echo nl2br("Payment Status: " . $saleCapture->Status . "\n");
+        echo nl2br("\n");
 
         /* Cancelamento */
         $saleVoid = $this->void($sale->Payment->PaymentId, $pagadorClient);
 
-        echo "Transaction voided\n";
-        echo "Payment Status: " . $saleVoid->Status . "\n";
-        echo "\n";
+        echo nl2br("Transaction voided\n");
+        echo nl2br("Payment Status: " . $saleVoid->Status . "\n");
+        echo nl2br("\n");
 
         /* Recuperação da Transação */
         $saleRemote = $this->get($sale->Payment->PaymentId, $pagadorClient);
 
-        echo "Transaction obtained from server\n";
-        echo "Order ID: " . $saleRemote->MerchantOrderId . "\n";
-        echo "Payment ID: " . $saleRemote->Payment->PaymentId . "\n";
-        echo "Payment Status: " . $saleRemote->Payment->Status . "\n";
-        echo "\n";
+        echo nl2br("Transaction obtained from server\n");
+        echo nl2br("Order ID: " . $saleRemote->MerchantOrderId . "\n");
+        echo nl2br("Payment ID: " . $saleRemote->Payment->PaymentId . "\n");
+        echo nl2br("Payment Status: " . $saleRemote->Payment->Status . "\n");
+        echo nl2br("\n");
     }
 
     private function createCreditCardSale(PagadorClient $client)
     {
         $request = new SaleRequest();
-
         $request->MerchantOrderId = uniqid();
 
         $request->Customer = new CustomerData();
