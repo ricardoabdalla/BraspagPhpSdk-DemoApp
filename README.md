@@ -1,6 +1,6 @@
 # Braspag SDK para PHP
 
-Este repositório contém **exemplos de utilização** do SDK PHP [((braspag/braspag-php-sdk))]((https://github.com/ricardoabdalla/BraspagPhpSdk)) para integração simplificada nos serviços da plataforma [Braspag](https://www.braspag.com.br).
+Este repositório contém **exemplos de utilização** do SDK PHP [\(braspag/braspag-php-sdk\)]((https://github.com/ricardoabdalla/BraspagPhpSdk)) para integração simplificada nos serviços da plataforma [Braspag](https://www.braspag.com.br).
 
 ## Instalação
 
